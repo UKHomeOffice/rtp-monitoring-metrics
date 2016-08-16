@@ -49,7 +49,7 @@ describe('healthcheck', function() {
     };
     it('should send json response with healthcheck', function() {
       healthcheck(req, res);
-      expect(res.status).to.be.calledWith(503);
+      expect(res.status).to.be.calledWith(500);
       expect(res.json).to.be.calledWith(expectedHealthcheck);
     });
 
