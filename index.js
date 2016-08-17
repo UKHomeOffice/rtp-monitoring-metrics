@@ -1,8 +1,12 @@
 'use strict';
 
-module.exports = (app, basePath) => {
-  const base = basePath || '';
-  app.use(`${base}/metrics`, require('./lib/metrics'));
-  app.use(`${base}/healthz`, require('./lib/healthcheck'));
-  app.use(`${base}/readiness`, require('./lib/healthcheck'));
-};
+const router = require('express').Router();
+
+function createRouter() {
+  router.get('/metrics', require('./lib/metrics'));
+  router.get('/healthz', require('./lib/healthcheck'));
+  router.get('/readiness', require('./lib/healthcheck'));
+  return router;
+}
+
+module.exports = createRouter();

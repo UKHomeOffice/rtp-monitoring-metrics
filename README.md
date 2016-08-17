@@ -1,6 +1,6 @@
 # RTP monitoring and metrics
 
-This module is intended to be used with node.js web apps using Express.
+This module is intended to be used with node.js web apps using Express. It exports an express router which provides useful endpoints.
  
 ### Endpoints provided
 
@@ -43,13 +43,12 @@ The readiness endpoint operates exactly the same as the `/healthz` endpoint.
 ### How to use
 
 1. Add this module to your application using `npm install --save rtp-monitoring-metrics`
-2. Require the module in your main file (e.g. `server.js`) using `const rtpMonitoringMetrics = require('rtp-monitoring-metrics');`
-3. Call it to mount middleware functions on the root of your app: `rtpMonitoringMetrics(app);`
+2. Add the exported router to you app: `app.use(require('rtp-monitoring-metrics'));`
 
 ### Additional configuration
 
-If you would like to mount the middleware functions under a sub-route, you can do so by passing a base path to the function
+If you would like to mount the middleware functions under a sub-route, you can do so using express out the box
 
 ```
-rtpMonitoringMetrics(app, '/path-to-mount-at');
+app.use('/path-to-mount-at', require('rtp-monitoring-metrics'));
 ```
