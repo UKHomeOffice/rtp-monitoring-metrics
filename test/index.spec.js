@@ -1,35 +1,24 @@
 'use strict';
 
-const sinon = require('sinon');
-const chai = require('chai');
-const sinonChai = require('sinon-chai');
-chai.use(sinonChai);
-const expect = chai.expect;
+const expect = require('chai').expect;
 const index = require('./../index');
 
 describe('index', function () {
 
-  let app;
-
-  beforeEach(function() {
-    app = {
-      use: sinon.stub()
-    };
+  it('should export a function', function() {
+    expect(index).to.be.a('function');
   });
 
-  it('should set middleware functions on app', function() {
-    index(app);
-    expect(app.use).to.be.calledWith('/metrics', require('./../lib/metrics'));
-    expect(app.use).to.be.calledWith('/healthz', require('./../lib/healthcheck'));
-    expect(app.use).to.be.calledWith('/readiness', require('./../lib/healthcheck'));
-  });
-
-  it('should use the base path if specified', function() {
-    let basePath = '/my-base';
-    index(app, basePath);
-    expect(app.use).to.be.calledWith(`${basePath}/metrics`);
-    expect(app.use).to.be.calledWith(`${basePath}/healthz`);
-    expect(app.use).to.be.calledWith(`${basePath}/readiness`);
+  it('should add expected routes to the exported router function', function() {
+    function routeExists(path) {
+      return index.stack.some(function(routeEntry) {
+        return routeEntry.route.path === path;
+      });
+    }
+    expect(index.stack).to.be.length(3);
+    expect(routeExists('/metrics')).to.be.true;
+    expect(routeExists('/healthz')).to.be.true;
+    expect(routeExists('/readiness')).to.be.true;
   });
 
 });

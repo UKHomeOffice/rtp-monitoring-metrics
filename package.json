@@ -11,6 +11,7 @@
   "author": "davethompson21@gmail.com",
   "license": "MIT",
   "dependencies": {
+    "express": "^4.14.0",
     "pidusage": "^1.0.4"
   },
   "devDependencies": {
