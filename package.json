@@ -1,6 +1,6 @@
 {
   "name": "rtp-monitoring-metrics",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Monitoring and metrics endpoints for node.js applications",
   "main": "index.js",
   "engines": {
